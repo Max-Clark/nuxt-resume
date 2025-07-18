@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Copy example resume as an example
+        run: cp data/resume.example.ts data/resume.ts
+
       - name: Run linting
         run: yarn lint
 
