@@ -5,8 +5,10 @@
 name: Deploy Nuxt site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
+  workflow_run:
+    workflows: ["lint-and-test"]
+    types:
+      - completed
     branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -70,6 +72,8 @@ jobs:
             ${{ runner.os }}-nuxt-build-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Use example resume as imported data
+        run: cp data/resume.example.ts data/resume.ts
       - name: Static HTML export with Nuxt
         run: ${{ steps.detect-package-manager.outputs.manager }} run generate
       - name: Upload artifact
