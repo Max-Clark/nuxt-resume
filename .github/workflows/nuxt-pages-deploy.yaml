@@ -24,8 +24,10 @@ jobs:
         with:
           node-version: "20"
       # Pick your own package manager and build script
-      - run: npm install
-      - run: npx nuxt build --preset github_pages
+      - run: yarn install
+      - name: Copy example to resume.ts
+        run: cp data/resume.example.ts data/resume.ts
+      - run: yarn nuxt build --preset github_pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
